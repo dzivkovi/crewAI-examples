@@ -31,7 +31,8 @@ class BrowserTools():
       task = Task(
           agent=agent,
           description=
-          f'Analyze and summarize the content below, make sure to include the most relevant information in the summary, return only the summary nothing else.\n\nCONTENT\n----------\n{chunk}'
+          f'Analyze and summarize the content below, make sure to include the most relevant information in the summary, return only the summary nothing else.\n\nCONTENT\n----------\n{chunk}',
+          expected_output="A concise summary highlighting the key points and relevant information extracted from the provided content. This summary should encapsulate the essence of the content in a structured and easily digestible format."
       )
       summary = task.execute()
       summaries.append(summary)

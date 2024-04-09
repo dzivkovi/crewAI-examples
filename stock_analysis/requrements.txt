@@ -1,0 +1,7 @@
+poetry
+platformdirs
+crewai
+unstructured
+sec_api
+yfinance
+faiss-gpu

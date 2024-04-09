@@ -1,3 +1,4 @@
+import os
 from crewai import Agent
 
 from tools.browser_tools import BrowserTools
@@ -6,6 +7,18 @@ from tools.search_tools import SearchTools
 from tools.sec_tools import SECTools
 
 from langchain.tools.yahoo_finance_news import YahooFinanceNewsTool
+from langchain.chat_models import ChatOpenAI
+
+from dotenv import load_dotenv
+load_dotenv()
+
+# Load OpenAI API Key
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+
+# The best but most expensive GPT
+llm = ChatOpenAI(model='gpt-4-turbo-preview', api_key=OPENAI_API_KEY) # 'gpt-3.5' for Loading GPT-3.5
+# ckeapter GPT with 16k window for longer context
+#llm = ChatOpenAI(model='gpt-3.5-turbo-1106', api_key=OPENAI_API_KEY) # 'gpt-3.5' for Loading GPT-3.5
 
 class StockAnalysisAgents():
   def financial_analyst(self):
@@ -17,6 +30,7 @@ class StockAnalysisAgents():
       lots of expertise in stock market analysis and investment
       strategies that is working for a super important customer.""",
       verbose=True,
+      llm=llm,
       tools=[
         BrowserTools.scrape_and_summarize_website,
         SearchTools.search_internet,
@@ -36,6 +50,7 @@ class StockAnalysisAgents():
       and market sentiments. Now you're working on a super 
       important customer""",
       verbose=True,
+      llm=llm,
       tools=[
         BrowserTools.scrape_and_summarize_website,
         SearchTools.search_internet,
@@ -56,6 +71,7 @@ class StockAnalysisAgents():
       strategic investment advice. You are now working for
       a super important customer you need to impress.""",
       verbose=True,
+      llm=llm,
       tools=[
         BrowserTools.scrape_and_summarize_website,
         SearchTools.search_internet,
